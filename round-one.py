@@ -1,23 +1,31 @@
 #!/usr/bin/python3
 
+class Game:
+
+    def __init__(self):
+        self.name = 'Guess 1234'
+
+    def goodguess(self, guess):
+        if guess is None:
+            return False
+        try:
+            int_guess = int(guess)
+        except ValueError:
+            return False
+        return int_guess == 1234
+
+    def hint(self, guess):
+        return 'Enter 1234 to win!'
+
+
 def main():
-  user = input('Enter you name: ')
-  password = input('Enter your password must be 10 word and number: ')
-  limit = 10
-  limit2 = 6
-  count = 0
-  while len(password) != limit :
-      print('Your maximum is only 10 not less or more')
-      count = count +1
-      if count >= 3:
-          quit()
-  else:
-      print('Access your account')
-  access = input("Enter your code: ")
-  if len(access) != limit2:
-      print('Please enter right code')
-  else:
-      print('done')
+    game = Game()
+    print('Game {}'.format(game.name))
+    user_guess = None
+    while not game.goodguess(user_guess):
+        print(game.hint(user_guess))
+        user_guess = input('Another guess: ')
+    print('You won')
 
 if __name__ == "__main__":
     main()
