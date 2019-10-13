@@ -3,7 +3,8 @@
 class Game:
 
     def __init__(self):
-        self.name = 'Guess 1234'
+        self.name = 'Odd/even game'
+        self.odds = 3
 
     def goodguess(self, guess):
         if guess is None:
@@ -15,16 +16,32 @@ class Game:
         return self.verify_number(int_guess)
 
     def verify_number(self, int_guess):
-        return int_guess == 1234
+        return self.count_odds(int_guess) == self.odds
 
     def hint(self, guess):
         if guess is None:
             return 'Guess the number!'
         try:
-            int(guess)
+            int_guess = int(guess)
         except ValueError:
             return 'Enter the number'
-        return 'Enter 1234 to win!'
+        if self.count_odds(int_guess) < self.odds:
+            return 'Too few odds'
+        elif self.count_odds(int_guess) > self.odds:
+            return 'Too many odds'
+        else:
+            return 'You won!'
+
+    def count_odds(self, number):
+        if number == 0:
+            return 1
+        odds = 0
+        while number != 0:
+            digit = number % 10
+            if digit % 2 == 0:
+                odds += 1
+            number //= 10
+        return odds
 
 
 def main():
